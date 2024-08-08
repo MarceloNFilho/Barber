@@ -10,7 +10,7 @@ import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
 import { BarbershopItem } from "./_components/barbershop-item"
 import { Footer } from "./_components/footer"
-import { categories } from "./_constants/categories"
+import { quickSearchOptions } from "./_constants/quick-search-options"
 
 export default async function Home() {
   const barbershops = await db.barbershop.findMany({})
@@ -37,21 +37,21 @@ export default async function Home() {
       </div>
 
       <div className="mt-6 flex gap-3 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
-        {categories.map((category) => {
+        {quickSearchOptions.map((option) => {
           return (
             <Button
-              key={category.name}
+              key={option.title}
               size="lg"
               className="bg-card gap-2"
               variant="secondary"
             >
               <Image
-                src={category.icon}
+                src={option.imageUrl}
                 width={16}
                 height={16}
-                alt={category.name}
+                alt={option.title}
               />
-              {category.name}
+              {option.title}
             </Button>
           )
         })}
