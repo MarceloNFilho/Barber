@@ -7,23 +7,29 @@ import { Title } from "./_components/title"
 import { Card, CardContent } from "./_components/ui/card"
 import { Badge } from "./_components/ui/badge"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
+import { db } from "./_lib/prisma"
+import { BarbershopItem } from "./_components/barbershop-item"
 
-export default function Home() {
+export default async function Home() {
+  const barbershops = await db.barbershop.findMany({})
+
   return (
     <div>
       <Header />
 
-      <div className="p-5">
+      <div className="mt-6 px-5">
         <h2 className="text-xl font-bold">Olá, Marcelo!</h2>
         <p className="text-sm">Quinta, 08 de Agosto</p>
+      </div>
 
-        <div className="mt-6 flex items-center justify-between gap-2">
-          <Input placeholder="Faça sua busca..." />
-          <Button size="icon" className="min-w-10">
-            <Search className="h-5 w-5" />
-          </Button>
-        </div>
+      <div className="mt-6 flex items-center justify-between gap-2 px-5">
+        <Input placeholder="Faça sua busca..." />
+        <Button size="icon" className="min-w-10">
+          <Search className="h-5 w-5" />
+        </Button>
+      </div>
 
+      <div className="px-5">
         <div className="relative mt-6 h-[150px] w-full">
           <Image
             src="/banner-01.png"
@@ -32,9 +38,11 @@ export default function Home() {
             className="rounded-xl object-cover"
           />
         </div>
+      </div>
 
-        <Title label="Agendamentos" />
+      <Title label="Agendamentos" />
 
+      <div className="px-5">
         <Card>
           <CardContent className="flex justify-between p-0">
             <div className="flex flex-col gap-2 py-5 pl-5">
@@ -56,6 +64,14 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      <Title label="Recomendados" />
+
+      <div className="flex gap-4 overflow-auto p-0 pl-5 [&::-webkit-scrollbar]:hidden">
+        {barbershops.map((barbershop) => {
+          return <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+        })}
       </div>
     </div>
   )
