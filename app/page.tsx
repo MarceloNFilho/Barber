@@ -9,9 +9,16 @@ import { Badge } from "./_components/ui/badge"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
 import { BarbershopItem } from "./_components/barbershop-item"
+import { Footer } from "./_components/footer"
+import { categories } from "./_constants/categories"
 
 export default async function Home() {
   const barbershops = await db.barbershop.findMany({})
+  const popularBarbershops = await db.barbershop.findMany({
+    orderBy: {
+      name: "desc",
+    },
+  })
 
   return (
     <div>
@@ -27,6 +34,27 @@ export default async function Home() {
         <Button size="icon" className="min-w-10">
           <Search className="h-5 w-5" />
         </Button>
+      </div>
+
+      <div className="mt-6 flex gap-3 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
+        {categories.map((category) => {
+          return (
+            <Button
+              key={category.name}
+              size="lg"
+              className="bg-card gap-2"
+              variant="secondary"
+            >
+              <Image
+                src={category.icon}
+                width={16}
+                height={16}
+                alt={category.name}
+              />
+              {category.name}
+            </Button>
+          )
+        })}
       </div>
 
       <div className="px-5">
@@ -73,6 +101,16 @@ export default async function Home() {
           return <BarbershopItem key={barbershop.id} barbershop={barbershop} />
         })}
       </div>
+
+      <Title label="Populares" />
+
+      <div className="flex gap-4 overflow-auto p-0 pl-5 [&::-webkit-scrollbar]:hidden">
+        {popularBarbershops.map((barbershop) => {
+          return <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+        })}
+      </div>
+
+      <Footer />
     </div>
   )
 }
