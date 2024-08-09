@@ -1,3 +1,4 @@
+import { ServiceItem } from "@/app/_components/service-item"
 import { Title } from "@/app/_components/title"
 import { Button } from "@/app/_components/ui/button"
 import { db } from "@/app/_lib/prisma"
@@ -17,6 +18,9 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
     where: {
       id: params.id,
     },
+    include: {
+      services: true,
+    },
   })
 
   if (!barbershop) {
@@ -24,7 +28,7 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
   }
 
   return (
-    <div>
+    <div className="relative rounded-t-xl">
       <div className="relative h-[250px] w-full">
         <Image
           src={barbershop?.imageUrl}
@@ -53,7 +57,7 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
         </Button>
       </div>
 
-      <div className="border-b border-solid p-5 pb-6">
+      <div className="relative z-10 mt-[-1.5rem] rounded-t-3xl border-b border-solid bg-background p-5 pb-6">
         <h1 className="text-xl font-bold">{barbershop?.name}</h1>
 
         <div className="mt-3 space-y-2">
@@ -75,6 +79,11 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
       </div>
 
       <Title label="Serviços" />
+      <div className="space-y-3">
+        {barbershop.services.map((service) => {
+          return <ServiceItem key={service.id} service={service} />
+        })}
+      </div>
     </div>
   )
 }
