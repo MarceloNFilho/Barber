@@ -42,7 +42,7 @@ export default async function Home() {
             <Button
               key={option.title}
               size="lg"
-              className="bg-card gap-2"
+              className="gap-2 bg-card"
               variant="secondary"
             >
               <Image
@@ -109,8 +109,6 @@ export default async function Home() {
           return <BarbershopItem key={barbershop.id} barbershop={barbershop} />
         })}
       </div>
-
-      <Footer />
     </div>
   )
 }

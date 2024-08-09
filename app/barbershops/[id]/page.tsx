@@ -1,3 +1,4 @@
+import { PhoneItem } from "@/app/_components/phone-item"
 import { ServiceItem } from "@/app/_components/service-item"
 import { Title } from "@/app/_components/title"
 import { Button } from "@/app/_components/ui/button"
@@ -83,6 +84,15 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
         {barbershop.services.map((service) => {
           return <ServiceItem key={service.id} service={service} />
         })}
+      </div>
+
+      <div className="mt-6 border-t border-solid">
+        <Title label="Contato" />
+        <div className="space-y-3 px-5">
+          {barbershop.phones.map((phone) => {
+            return <PhoneItem key={phone} phone={phone} />
+          })}
+        </div>
       </div>
     </div>
   )
