@@ -58,7 +58,7 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
               variant="outline"
               className="absolute right-5 top-6"
             >
-              <MenuIcon />
+              <MenuIcon size={20} />
             </Button>
           </SheetTrigger>
           <Menu />

@@ -28,7 +28,7 @@ export function Header() {
         <Sheet>
           <SheetTrigger asChild>
             <Button size="icon" variant="outline">
-              <MenuIcon />
+              <MenuIcon size={20} />
             </Button>
           </SheetTrigger>
           <Menu />
