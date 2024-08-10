@@ -93,7 +93,7 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
         })}
       </div>
 
-      <div className="mt-6 border-t border-solid">
+      <div className="mb-12 mt-6 border-t border-solid">
         <Title label="Contato" />
         <div className="space-y-3 px-5">
           {barbershop.phones.map((phone) => {

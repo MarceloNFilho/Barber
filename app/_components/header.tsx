@@ -1,29 +1,18 @@
 import Image from "next/image"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
-import {
-  CalendarIcon,
-  HomeIcon,
-  LogOut,
-  LogOutIcon,
-  MenuIcon,
-} from "lucide-react"
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./ui/sheet"
-import { quickSearchOptions } from "../_constants/quick-search-options"
-import { Avatar, AvatarImage } from "./ui/avatar"
+import { MenuIcon } from "lucide-react"
+import { Sheet, SheetTrigger } from "./ui/sheet"
 import { Menu } from "./menu"
+import Link from "next/link"
 
 export function Header() {
   return (
     <Card>
       <CardContent className="flex items-center justify-between p-5">
-        <Image src="/logo.png" alt="FSW Barber" height={18} width={120} />
+        <Link href="/">
+          <Image src="/logo.png" alt="FSW Barber" height={18} width={120} />
+        </Link>
 
         <Sheet>
           <SheetTrigger asChild>

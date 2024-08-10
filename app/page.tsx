@@ -1,4 +1,3 @@
-import { Search } from "lucide-react"
 import { Header } from "./_components/header"
 import { Button } from "./_components/ui/button"
 import { Input } from "./_components/ui/input"
@@ -11,6 +10,7 @@ import { db } from "./_lib/prisma"
 import { BarbershopItem } from "./_components/barbershop-item"
 import { Footer } from "./_components/footer"
 import { quickSearchOptions } from "./_constants/quick-search-options"
+import { Search } from "./_components/search"
 
 export default async function Home() {
   const barbershops = await db.barbershop.findMany({})
@@ -29,11 +29,8 @@ export default async function Home() {
         <p className="text-sm">Quinta, 08 de Agosto</p>
       </div>
 
-      <div className="mt-6 flex items-center justify-between gap-2 px-5">
-        <Input placeholder="Faça sua busca..." />
-        <Button size="icon" className="min-w-10">
-          <Search className="h-5 w-5" />
-        </Button>
+      <div className="mt-6 px-5">
+        <Search />
       </div>
 
       <div className="mt-6 flex gap-3 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
@@ -104,7 +101,7 @@ export default async function Home() {
 
       <Title label="Populares" />
 
-      <div className="flex gap-4 overflow-auto p-0 pl-5 [&::-webkit-scrollbar]:hidden">
+      <div className="mb-12 flex gap-4 overflow-auto p-0 pl-5 [&::-webkit-scrollbar]:hidden">
         {popularBarbershops.map((barbershop) => {
           return <BarbershopItem key={barbershop.id} barbershop={barbershop} />
         })}
