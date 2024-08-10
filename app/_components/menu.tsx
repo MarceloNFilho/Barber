@@ -3,7 +3,7 @@
 import { HomeIcon, CalendarIcon, LogOutIcon, LogInIcon } from "lucide-react"
 import { quickSearchOptions } from "../_constants/quick-search-options"
 import { Button } from "./ui/button"
-import { SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
+import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import Image from "next/image"
 import Link from "next/link"
@@ -16,7 +16,6 @@ import {
   DialogTrigger,
 } from "./ui/dialog"
 import { signIn, signOut, useSession } from "next-auth/react"
-import { notFound } from "next/navigation"
 
 export function Menu() {
   function handleSignInWithGoogleClick() {
@@ -103,19 +102,19 @@ export function Menu() {
       <div className="flex flex-col gap-1 border-b border-solid py-5">
         {quickSearchOptions.map((option) => {
           return (
-            <Button
-              key={option.title}
-              variant="ghost"
-              className="justify-start gap-2"
-            >
-              <Image
-                src={option.imageUrl}
-                alt={option.title}
-                height={16}
-                width={16}
-              />
-              <p className="text-sm font-normal">{option.title}</p>
-            </Button>
+            <SheetClose key={option.title} asChild>
+              <Button variant="ghost" className="justify-start gap-2" asChild>
+                <Link href={`barbershops?service=${option.title}`}>
+                  <Image
+                    src={option.imageUrl}
+                    alt={option.title}
+                    height={16}
+                    width={16}
+                  />
+                  <p className="text-sm font-normal">{option.title}</p>
+                </Link>
+              </Button>
+            </SheetClose>
           )
         })}
       </div>
