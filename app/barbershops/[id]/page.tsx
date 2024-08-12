@@ -89,7 +89,13 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
       <Title label="Serviços" />
       <div className="space-y-3">
         {barbershop.services.map((service) => {
-          return <ServiceItem key={service.id} service={service} />
+          return (
+            <ServiceItem
+              key={service.id}
+              service={service}
+              barbershop={barbershop}
+            />
+          )
         })}
       </div>
 
