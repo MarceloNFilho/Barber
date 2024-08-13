@@ -57,15 +57,15 @@ export default async function Bookings() {
 
       <div className="mt-6 px-5">
         <h2 className="text-xl font-bold">Agendamentos</h2>
-        <Title label="Confirmados" />
 
+        {confirmedBookings.length > 0 && <Title label="Confirmados" />}
         <div className="space-y-3">
           {confirmedBookings.map((booking) => {
             return <BookingItem key={booking.id} booking={booking} />
           })}
         </div>
 
-        <Title label="Finalizados" />
+        {concludedBookings.length > 0 && <Title label="Finalizados" />}
         <div className="mb-12 space-y-3">
           {concludedBookings.map((booking) => {
             return <BookingItem key={booking.id} booking={booking} />
