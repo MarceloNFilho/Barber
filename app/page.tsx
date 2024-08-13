@@ -1,25 +1,44 @@
 import { Header } from "./_components/header"
 import { Button } from "./_components/ui/button"
-import { Input } from "./_components/ui/input"
 import Image from "next/image"
 import { Title } from "./_components/title"
-import { Card, CardContent } from "./_components/ui/card"
-import { Badge } from "./_components/ui/badge"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
 import { BarbershopItem } from "./_components/barbershop-item"
-import { Footer } from "./_components/footer"
 import { quickSearchOptions } from "./_constants/quick-search-options"
 import { Search } from "./_components/search"
 import Link from "next/link"
+import { BookingItem } from "./_components/booking-item"
+import { getServerSession } from "next-auth"
+import { authOptions } from "./_lib/auth"
 
 export default async function Home() {
+  const session = await getServerSession(authOptions)
   const barbershops = await db.barbershop.findMany({})
   const popularBarbershops = await db.barbershop.findMany({
     orderBy: {
       name: "desc",
     },
   })
+  const bookings = session?.user
+    ? await db.booking.findMany({
+        where: {
+          userId: (session.user as any).id,
+          date: {
+            gte: new Date(),
+          },
+        },
+        include: {
+          service: {
+            include: {
+              barbershop: true,
+            },
+          },
+        },
+        orderBy: {
+          date: "asc",
+        },
+      })
+    : []
 
   return (
     <div>
@@ -69,42 +88,27 @@ export default async function Home() {
         </div>
       </div>
 
-      <Title label="Agendamentos" />
-
       <div className="px-5">
-        <Card>
-          <CardContent className="flex justify-between p-0">
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3>Corte de Cabelo</h3>
-
-              <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
-                </Avatar>
-                <p>Barbearia da FSW</p>
-              </div>
-            </div>
-
-            <div className="flex w-[106px] flex-col items-center justify-center gap-2 border-l-2 px-5">
-              <p className="text-sm">Agosto</p>
-              <p className="text-2xl">05</p>
-              <p className="text-sm">20:00</p>
-            </div>
-          </CardContent>
-        </Card>
+        <Title label="Agendamentos" />
+      </div>
+      <div className="flex gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
+        {bookings.map((booking) => {
+          return <BookingItem key={booking.id} booking={booking} />
+        })}
       </div>
 
-      <Title label="Recomendados" />
-
+      <div className="px-5">
+        <Title label="Recomendados" />
+      </div>
       <div className="flex gap-4 overflow-auto p-0 pl-5 [&::-webkit-scrollbar]:hidden">
         {barbershops.map((barbershop) => {
           return <BarbershopItem key={barbershop.id} barbershop={barbershop} />
         })}
       </div>
 
-      <Title label="Populares" />
-
+      <div className="px-5">
+        <Title label="Populares" />
+      </div>
       <div className="mb-12 flex gap-4 overflow-auto p-0 pl-5 [&::-webkit-scrollbar]:hidden">
         {popularBarbershops.map((barbershop) => {
           return <BarbershopItem key={barbershop.id} barbershop={barbershop} />

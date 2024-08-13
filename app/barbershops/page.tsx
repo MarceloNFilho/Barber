@@ -42,18 +42,22 @@ export default async function BarberShopsPage({
   return (
     <>
       <Header />
-      <div className="mt-6 px-5">
-        <Search />
-      </div>
+      <div className="mt-6">
+        <div className="px-5">
+          <Search />
+        </div>
 
-      <p className="mt-6 px-5 text-xs font-bold uppercase text-gray-400">
-        RESULTADOS PARA “{searchParams.title || searchParams.service}”
-      </p>
+        <p className="mt-6 px-5 text-xs font-bold uppercase text-gray-400">
+          RESULTADOS PARA “{searchParams.title || searchParams.service}”
+        </p>
 
-      <div className="mt-3 grid grid-cols-2 gap-4 px-5">
-        {barbershops.map((barbershop) => {
-          return <BarbershopItem key={barbershop.id} barbershop={barbershop} />
-        })}
+        <div className="mb-12 mt-3 grid grid-cols-2 gap-4 px-5">
+          {barbershops.map((barbershop) => {
+            return (
+              <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+            )
+          })}
+        </div>
       </div>
     </>
   )

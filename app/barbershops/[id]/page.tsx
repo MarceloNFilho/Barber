@@ -81,13 +81,13 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
         </div>
       </div>
 
-      <div className="border-b border-solid pb-6">
+      <div className="border-b border-solid px-5 pb-6">
         <Title label="Sobre nós" />
-        <p className="px-5 text-justify text-sm">{barbershop?.description}</p>
+        <p className="text-justify text-sm">{barbershop?.description}</p>
       </div>
 
-      <Title label="Serviços" />
-      <div className="space-y-3">
+      <div className="space-y-3 px-5">
+        <Title label="Serviços" />
         {barbershop.services.map((service) => {
           return (
             <ServiceItem
@@ -99,9 +99,9 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
         })}
       </div>
 
-      <div className="mb-12 mt-6 border-t border-solid">
+      <div className="mb-12 mt-6 border-t border-solid px-5">
         <Title label="Contato" />
-        <div className="space-y-3 px-5">
+        <div className="space-y-3">
           {barbershop.phones.map((phone) => {
             return <PhoneItem key={phone} phone={phone} />
           })}

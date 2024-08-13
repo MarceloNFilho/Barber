@@ -70,9 +70,11 @@ export function Menu() {
           </Link>
         </Button>
 
-        <Button variant="ghost" className="justify-start gap-2">
-          <CalendarIcon size={16} />
-          <p className="text-sm font-normal">Agendamentos</p>
+        <Button variant="ghost" className="justify-start gap-2" asChild>
+          <Link href="/bookings">
+            <CalendarIcon size={16} />
+            <p className="text-sm font-normal">Agendamentos</p>
+          </Link>
         </Button>
       </div>
 

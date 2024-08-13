@@ -8,7 +8,7 @@ import Link from "next/link"
 
 export function Header() {
   return (
-    <Card>
+    <Card className="rounded-t-none">
       <CardContent className="flex items-center justify-between p-5">
         <Link href="/">
           <Image src="/logo.png" alt="FSW Barber" height={18} width={120} />

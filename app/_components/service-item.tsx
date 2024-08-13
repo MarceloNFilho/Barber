@@ -144,7 +144,7 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
 
   return (
     <>
-      <Card className="mx-5">
+      <Card>
         <CardContent className="flex items-center gap-2 rounded-xl bg-card p-3">
           <div className="relative h-[110px] min-w-[110px]">
             <Image
