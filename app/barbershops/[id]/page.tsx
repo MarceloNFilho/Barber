@@ -92,8 +92,8 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
           return (
             <ServiceItem
               key={service.id}
-              service={service}
-              barbershop={barbershop}
+              service={JSON.parse(JSON.stringify(service))}
+              barbershop={JSON.parse(JSON.stringify(barbershop))}
             />
           )
         })}

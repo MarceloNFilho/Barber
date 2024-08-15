@@ -29,14 +29,24 @@ export default async function Bookings() {
         {confirmedBookings.length > 0 && <Title label="Confirmados" />}
         <div className="space-y-3">
           {confirmedBookings.map((booking) => {
-            return <BookingItem key={booking.id} booking={booking} />
+            return (
+              <BookingItem
+                key={booking.id}
+                booking={JSON.parse(JSON.stringify(booking))}
+              />
+            )
           })}
         </div>
 
         {concludedBookings.length > 0 && <Title label="Finalizados" />}
         <div className="mb-12 space-y-3">
           {concludedBookings.map((booking) => {
-            return <BookingItem key={booking.id} booking={booking} />
+            return (
+              <BookingItem
+                key={booking.id}
+                booking={JSON.parse(JSON.stringify(booking))}
+              />
+            )
           })}
         </div>
       </div>

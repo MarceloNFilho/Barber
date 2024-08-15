@@ -66,16 +66,18 @@ export default async function Home() {
         })}
       </div>
 
-      <div className="px-5">
-        <div className="relative mt-6 h-[150px] w-full">
-          <Image
-            src="/banner-01.png"
-            alt="Agende nos melhores"
-            fill
-            className="rounded-xl object-cover"
-          />
+      <Link href="">
+        <div className="px-5">
+          <div className="relative mt-6 h-[150px] w-full">
+            <Image
+              src="/banner-01.png"
+              alt="Agende nos melhores"
+              fill
+              className="rounded-xl object-cover"
+            />
+          </div>
         </div>
-      </div>
+      </Link>
 
       {confirmedBookings.length > 0 && (
         <>
@@ -84,7 +86,12 @@ export default async function Home() {
           </div>
           <div className="flex gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
             {confirmedBookings.map((booking) => {
-              return <BookingItem key={booking.id} booking={booking} />
+              return (
+                <BookingItem
+                  key={booking.id}
+                  booking={JSON.parse(JSON.stringify(booking))}
+                />
+              )
             })}
           </div>
         </>
