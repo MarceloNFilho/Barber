@@ -12,6 +12,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "./_lib/auth"
 import { ptBR, se } from "date-fns/locale"
 import { format } from "date-fns"
+import { getConfirmedBookings } from "./_data/get-confirmed-bookings"
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -21,26 +22,8 @@ export default async function Home() {
       name: "desc",
     },
   })
-  const bookings = session?.user
-    ? await db.booking.findMany({
-        where: {
-          userId: (session.user as any).id,
-          date: {
-            gte: new Date(),
-          },
-        },
-        include: {
-          service: {
-            include: {
-              barbershop: true,
-            },
-          },
-        },
-        orderBy: {
-          date: "asc",
-        },
-      })
-    : []
+
+  const confirmedBookings = await getConfirmedBookings()
 
   return (
     <div>
@@ -94,14 +77,18 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="px-5">
-        <Title label="Agendamentos" />
-      </div>
-      <div className="flex gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
-        {bookings.map((booking) => {
-          return <BookingItem key={booking.id} booking={booking} />
-        })}
-      </div>
+      {confirmedBookings.length > 0 && (
+        <>
+          <div className="px-5">
+            <Title label="Agendamentos" />
+          </div>
+          <div className="flex gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
+            {confirmedBookings.map((booking) => {
+              return <BookingItem key={booking.id} booking={booking} />
+            })}
+          </div>
+        </>
+      )}
 
       <div className="px-5">
         <Title label="Recomendados" />
