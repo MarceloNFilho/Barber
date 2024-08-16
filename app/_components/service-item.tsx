@@ -6,25 +6,24 @@ import { Button } from "./ui/button"
 import { currencyFormatter } from "../_helpers/currency-formatter"
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "./ui/sheet"
 import { Calendar } from "./ui/calendar"
 import { ptBR } from "date-fns/locale"
 import { useEffect, useMemo, useState } from "react"
 import { Card, CardContent } from "./ui/card"
-import { addDays, format, isPast, isToday, set } from "date-fns"
+import { isPast, isToday, set } from "date-fns"
 import { createBooking } from "../_actions/create-booking"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
 import { getBookings } from "../_actions/get-bookings"
-import { Dialog, DialogContent } from "./ui/dialog"
+import { Dialog } from "./ui/dialog"
 import { SignInDialog } from "./sign-in-dialog"
 import { TIME_LIST } from "../_constants/time-list"
+import { BookingSummary } from "./booking-summary"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -86,6 +85,15 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
     fetch()
   }, [selectedDay, service.id])
 
+  const selectedDate = useMemo(() => {
+    if (!selectedDay || selectedTime) return
+
+    return set(selectedDay, {
+      hours: Number(selectedTime?.split(":")[0]),
+      minutes: Number(selectedTime?.split(":")[1]),
+    })
+  }, [selectedDay, selectedTime])
+
   function handleBookingSheetOpenChange() {
     setSelectedDay(undefined)
     setSelectedTime(undefined)
@@ -110,18 +118,11 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
 
   async function handleCreateBooking() {
     try {
-      if (!selectedDay || !selectedTime) return
-
-      const hour = Number(selectedTime?.split(":")[0])
-      const minutes = Number(selectedTime?.split(":")[1])
-      const newDate = set(selectedDay, {
-        minutes: minutes,
-        hours: hour,
-      })
+      if (!selectedDate) return
 
       await createBooking({
         serviceId: service.id,
-        date: newDate,
+        date: selectedDate,
       })
 
       handleBookingSheetOpenChange()
@@ -239,36 +240,13 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
                     </div>
                   )}
 
-                  {selectedTime && selectedDay && (
+                  {selectedDate && (
                     <div className="px-5 pt-5">
-                      <Card>
-                        <CardContent className="space-y-3 p-3">
-                          <div className="flex items-center justify-between">
-                            <h2 className="font-bold">{service.name}</h2>
-                            <p className="text-sm font-bold">
-                              {currencyFormatter(Number(service.price))}
-                            </p>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <h2 className="text-sm text-gray-400">Data</h2>
-                            <p className="text-sm">
-                              {format(selectedDay, "d 'de' MMMM", {
-                                locale: ptBR,
-                              })}
-                            </p>
-                          </div>
-
-                          <div className="flex items-center justify-between">
-                            <h2 className="text-sm text-gray-400">Horário</h2>
-                            <p className="text-sm">{selectedTime}</p>
-                          </div>
-
-                          <div className="flex items-center justify-between">
-                            <h2 className="text-sm text-gray-400">Barbearia</h2>
-                            <p className="text-sm">{barbershop.name}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
+                      <BookingSummary
+                        barbershop={barbershop}
+                        service={service}
+                        selectedDate={selectedDate}
+                      />
                     </div>
                   )}
                   <SheetFooter className="mt-5 px-5">

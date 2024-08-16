@@ -66,18 +66,16 @@ export default async function Home() {
         })}
       </div>
 
-      <Link href="">
-        <div className="px-5">
-          <div className="relative mt-6 h-[150px] w-full">
-            <Image
-              src="/banner-01.png"
-              alt="Agende nos melhores"
-              fill
-              className="rounded-xl object-cover"
-            />
-          </div>
+      <div className="px-5">
+        <div className="relative mt-6 h-[150px] w-full">
+          <Image
+            src="/banner-01.png"
+            alt="Agende nos melhores"
+            fill
+            className="rounded-xl object-cover"
+          />
         </div>
-      </Link>
+      </div>
 
       {confirmedBookings.length > 0 && (
         <>

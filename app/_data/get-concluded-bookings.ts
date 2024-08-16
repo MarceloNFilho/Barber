@@ -11,7 +11,7 @@ export async function getConcludedBookings() {
     where: {
       userId: (session.user as any).id,
       date: {
-        lt: new Date(),
+        lte: new Date(),
       },
     },
     include: {
