@@ -88,7 +88,7 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
   }, [selectedDay, service.id])
 
   const selectedDate = useMemo(() => {
-    if (!selectedDay || selectedTime) return
+    if (!selectedDay || !selectedTime) return
 
     return set(selectedDay, {
       hours: Number(selectedTime?.split(":")[0]),
@@ -129,10 +129,15 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
 
       handleBookingSheetOpenChange()
       toast.success("Reserva criada com sucesso!", {
-        action: {
-          label: "Ver agendamentos!",
-          onClick: () => router.push("/bookings"),
-        },
+        action: (
+          <Button
+            className="ml-auto bg-transparent text-green-600 hover:bg-green-600 hover:text-white"
+            size="sm"
+            onClick={() => router.push("/bookings")}
+          >
+            Ver agendamentos
+          </Button>
+        ),
       })
     } catch (error) {
       console.error(error)

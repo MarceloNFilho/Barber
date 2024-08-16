@@ -102,8 +102,8 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
       <div className="mb-12 mt-6 border-t border-solid px-5">
         <Title label="Contato" />
         <div className="space-y-3">
-          {barbershop.phones.map((phone) => {
-            return <PhoneItem key={phone} phone={phone} />
+          {barbershop.phones.map((phone, index) => {
+            return <PhoneItem key={index} phone={phone} />
           })}
         </div>
       </div>
