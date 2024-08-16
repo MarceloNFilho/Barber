@@ -24,7 +24,7 @@ import { Dialog } from "./ui/dialog"
 import { SignInDialog } from "./sign-in-dialog"
 import { TIME_LIST } from "../_constants/time-list"
 import { BookingSummary } from "./booking-summary"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 interface ServiceItemProps {
   service: BarbershopService
