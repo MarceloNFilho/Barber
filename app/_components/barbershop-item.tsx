@@ -12,7 +12,7 @@ interface BarbershopItemProps {
 
 export function BarbershopItem({ barbershop }: BarbershopItemProps) {
   return (
-    <Card className="h-fit min-w-[168px]">
+    <Card className="h-fit min-w-[168px] lg:min-w-[196px]">
       <CardContent className="p-0">
         <div className="relative h-[159px] w-full">
           <Image
@@ -22,13 +22,13 @@ export function BarbershopItem({ barbershop }: BarbershopItemProps) {
             className="rounded-xl object-cover p-1"
           />
 
-          <Badge
+          {/* <Badge
             className="absolute left-2 top-2 space-x-1 bg-black/60"
             variant="secondary"
           >
             <StarIcon size={12} className="fill-primary text-primary" />
             <p className="text-xs font-bold">5,0</p>
-          </Badge>
+          </Badge> */}
         </div>
 
         <div className="px-2 py-3">

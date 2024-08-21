@@ -3,20 +3,38 @@
 import Image from "next/image"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
-import { CalendarIcon, MenuIcon, UserCircle } from "lucide-react"
+import {
+  CalendarIcon,
+  ChevronDown,
+  LogOutIcon,
+  MenuIcon,
+  UserCircle,
+} from "lucide-react"
 import { Sheet, SheetTrigger } from "./ui/sheet"
 import { Menu } from "./menu"
 import Link from "next/link"
 import { Dialog, DialogTrigger } from "./ui/dialog"
 import { SignInDialog } from "./sign-in-dialog"
-import { useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import { usePathname } from "next/navigation"
 import { Search } from "./search"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu"
 
 export function Header() {
   const router = usePathname()
   const { data } = useSession()
+
+  function handleSignOutClick() {
+    signOut()
+  }
 
   return (
     <Card className="rounded-t-none">
@@ -43,32 +61,58 @@ export function Header() {
         )}
 
         <div className="hidden lg:flex lg:items-center lg:gap-6">
-          <Button
-            variant="ghost"
-            className="justify-start gap-2 rounded-lg"
-            asChild
-          >
-            <Link href="/bookings">
-              <CalendarIcon size={16} />
-              <p className="text-sm font-bold">Agendamentos</p>
-            </Link>
-          </Button>
-
           {data?.user ? (
-            <div className="flex items-center gap-2">
-              <Avatar className="h-9 w-9">
-                <AvatarImage
-                  src={data.user.image ?? ``}
-                  className="rounded-full object-cover"
-                />
-              </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="secondary" className="flex items-center gap-2">
+                  <Avatar className="h-7 w-7">
+                    <AvatarImage
+                      src={data.user.image ?? ``}
+                      className="rounded-full object-cover"
+                    />
+                  </Avatar>
 
-              <p className="font-bold">{data.user.name}</p>
-            </div>
+                  <p className="text-sm font-bold">{data.user.name}</p>
+
+                  <ChevronDown size={16} />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent className="w-[236px]">
+                <DropdownMenuItem className="p-0">
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start gap-2 rounded-lg"
+                    asChild
+                  >
+                    <Link href="/bookings">
+                      <CalendarIcon size={16} />
+                      <p className="text-sm font-bold">Agendamentos</p>
+                    </Link>
+                  </Button>
+                </DropdownMenuItem>
+
+                {data?.user && (
+                  <>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="p-0">
+                      <Button
+                        variant="ghost"
+                        className="w-full justify-start gap-2 hover:text-destructive"
+                        onClick={handleSignOutClick}
+                      >
+                        <LogOutIcon size={16} />
+                        <p className="text-sm font-bold">Sair</p>
+                      </Button>
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="flex items-center gap-2 rounded-lg">
+                <Button className="items-center gap-2 rounded-lg">
                   <UserCircle size={16} />
                   <p className="text-sm font-bold">Perfil</p>
                 </Button>
