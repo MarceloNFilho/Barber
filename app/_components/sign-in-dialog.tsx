@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { Button } from "./ui/button"
 import {
@@ -14,7 +16,7 @@ export function SignInDialog() {
   }
 
   return (
-    <DialogContent className="w-[85%] rounded-xl">
+    <DialogContent className="w-[85%] max-w-[324px] rounded-xl">
       <DialogHeader className="flex gap-0.5">
         <DialogTitle>Faça login na plataforma</DialogTitle>
         <DialogDescription>

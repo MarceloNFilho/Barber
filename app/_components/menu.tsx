@@ -7,15 +7,8 @@ import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import Image from "next/image"
 import Link from "next/link"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog"
-import { signIn, signOut, useSession } from "next-auth/react"
+import { Dialog, DialogTrigger } from "./ui/dialog"
+import { signOut, useSession } from "next-auth/react"
 import { SignInDialog } from "./sign-in-dialog"
 
 export function Menu() {
