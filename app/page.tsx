@@ -13,6 +13,7 @@ import { authOptions } from "./_lib/auth"
 import { ptBR, se } from "date-fns/locale"
 import { format } from "date-fns"
 import { getConfirmedBookings } from "./_data/get-confirmed-bookings"
+import { BarbershopList } from "./_components/barbershop-list"
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -29,13 +30,14 @@ export default async function Home() {
     <div>
       <Header />
 
+      {/* Desktop main banner */}
       <div className="hidden lg:block">
         <div className="bg-barber flex h-[463px] w-full bg-cover bg-top">
           <div className="mx-auto w-full max-w-[1224px]">
-            <div className="flex h-full items-center justify-between gap-32">
+            <div className="flex h-full items-center justify-between gap-28 px-5">
               <div className="flex w-full flex-col items-center justify-center">
                 {session?.user ? (
-                  <div className="w-full px-5 text-left">
+                  <div className="w-full text-left">
                     <h2 className="text-2xl font-bold">
                       Olá,{" "}
                       {session?.user ? `${session.user.name}!` : "Bem-vindo!"}
@@ -47,24 +49,24 @@ export default async function Home() {
                     </p>
                   </div>
                 ) : (
-                  <>
+                  <div className="w-full text-left">
                     <h2 className="text-2xl font-bold">Olá, faça seu login!</h2>
                     <p className="text-sm">
                       {format(new Date(), "EEEE',' dd 'de' MMMM", {
                         locale: ptBR,
                       })}
                     </p>
-                  </>
+                  </div>
                 )}
 
-                <div className="mt-11 w-full px-5">
+                <div className="mt-11 w-full">
                   <Search />
 
                   <div className="mt-11">
                     {session?.user && confirmedBookings.length > 0 && (
                       <>
                         <Title label="Agendamentos" />
-                        <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+                        <div className="flex gap-4 overflow-x-auto">
                           {confirmedBookings.map((booking) => {
                             return (
                               <BookingItem
@@ -80,18 +82,9 @@ export default async function Home() {
                 </div>
               </div>
 
-              <div className="flex flex-col overflow-x-auto px-5">
+              <div className="flex flex-col overflow-x-auto [&::-webkit-scrollbar]:hidden">
                 <Title label="Recomendados" />
-                <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-                  {barbershops.map((barbershop) => {
-                    return (
-                      <BarbershopItem
-                        key={barbershop.id}
-                        barbershop={barbershop}
-                      />
-                    )
-                  })}
-                </div>
+                <BarbershopList barbershops={barbershops} />
               </div>
             </div>
           </div>
@@ -179,17 +172,9 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1224px] overflow-x-auto lg:px-5">
-        <div className="max-lg:px-5">
-          <Title label="Populares" />
-        </div>
-        <div className="mb-12 flex gap-4 overflow-x-auto p-0 max-lg:pl-5 [&::-webkit-scrollbar]:hidden">
-          {popularBarbershops.map((barbershop) => {
-            return (
-              <BarbershopItem key={barbershop.id} barbershop={barbershop} />
-            )
-          })}
-        </div>
+      <div className="mx-auto mb-12 max-w-[1224px] overflow-hidden px-5">
+        <Title label="Populares" />
+        <BarbershopList barbershops={popularBarbershops} />
       </div>
     </div>
   )
