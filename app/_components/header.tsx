@@ -11,13 +11,16 @@ import { Dialog, DialogTrigger } from "./ui/dialog"
 import { SignInDialog } from "./sign-in-dialog"
 import { useSession } from "next-auth/react"
 import { Avatar, AvatarImage } from "./ui/avatar"
+import { usePathname } from "next/navigation"
+import { Search } from "./search"
 
 export function Header() {
+  const router = usePathname()
   const { data } = useSession()
 
   return (
     <Card className="rounded-t-none">
-      <CardContent className="mx-auto flex max-w-[1224px] items-center justify-between p-5 lg:h-24">
+      <CardContent className="mx-auto flex max-w-[1224px] items-center justify-between p-5 lg:h-24 lg:gap-11">
         <Link href="/">
           <Image src="/logo.png" alt="FSW Barber" height={18} width={120} />
         </Link>
@@ -32,6 +35,12 @@ export function Header() {
             <Menu />
           </Sheet>
         </div>
+
+        {router !== "/" && (
+          <div className="flex-1">
+            <Search />
+          </div>
+        )}
 
         <div className="hidden lg:flex lg:items-center lg:gap-6">
           <Button
