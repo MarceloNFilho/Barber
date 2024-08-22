@@ -64,7 +64,7 @@ export function Header() {
           {data?.user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="secondary" className="flex items-center gap-2">
+                <Button variant="outline" className="flex items-center gap-2">
                   <Avatar className="h-7 w-7">
                     <AvatarImage
                       src={data.user.image ?? ``}

@@ -40,7 +40,7 @@ export function BarbershopList({ barbershops }: BarbershopListProps) {
   return (
     <div ref={sliderRef} className="relative flex">
       <Button
-        className="absolute bottom-[30%] left-0 z-10 hidden h-14 w-14 -translate-y-1/2 rounded-full border border-solid border-secondary bg-background disabled:hidden lg:block"
+        className="absolute bottom-[30%] left-4 z-10 hidden h-14 w-14 -translate-y-1/2 rounded-full border border-solid border-secondary bg-background disabled:hidden lg:block"
         onClick={(e: any) => e.stopPropagation() || instanceRef.current?.prev()}
         disabled={currentSlide === 0}
       >
@@ -56,7 +56,7 @@ export function BarbershopList({ barbershops }: BarbershopListProps) {
         )
       })}
       <Button
-        className="absolute bottom-[30%] right-0 hidden h-14 w-14 -translate-y-1/2 rounded-full border border-solid border-secondary bg-background disabled:hidden lg:block"
+        className="absolute bottom-[30%] right-4 hidden h-14 w-14 -translate-y-1/2 rounded-full border border-solid border-secondary bg-background disabled:hidden lg:block"
         onClick={(e: any) => e.stopPropagation() || instanceRef.current?.next()}
         disabled={
           currentSlide ===
