@@ -32,7 +32,7 @@ export default async function Home() {
 
       {/* Desktop main banner */}
       <div className="hidden lg:block">
-        <div className="bg-barber flex h-[463px] w-full bg-cover bg-top">
+        <div className="flex h-[463px] w-full bg-barber bg-cover bg-top">
           <div className="mx-auto w-full max-w-[1224px]">
             <div className="flex h-full items-center justify-between gap-28 px-5">
               <div className="flex w-full flex-col items-center justify-center">
@@ -160,15 +160,9 @@ export default async function Home() {
           </>
         )}
 
-        <div className="px-5">
+        <div className="mx-auto max-w-[1224px] overflow-hidden px-5">
           <Title label="Recomendados" />
-        </div>
-        <div className="flex gap-4 overflow-auto p-0 pl-5 [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => {
-            return (
-              <BarbershopItem key={barbershop.id} barbershop={barbershop} />
-            )
-          })}
+          <BarbershopList barbershops={barbershops} />
         </div>
       </div>
 
