@@ -3,7 +3,6 @@
 import { Booking } from "@prisma/client"
 import { BookingItem } from "./booking-item"
 import { useKeenSlider } from "keen-slider/react"
-import { useEffect, useState } from "react"
 
 interface BookingListProps {
   confirmedBookings: Booking[]

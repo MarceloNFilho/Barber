@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Button } from "./ui/button"
 import { useKeenSlider } from "keen-slider/react"
 
@@ -13,7 +12,6 @@ export function BookingTimeList({
   selectedTime,
   setSelectedTime,
 }: BookingTimeListProps) {
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     slides: {
       perView: "auto",
