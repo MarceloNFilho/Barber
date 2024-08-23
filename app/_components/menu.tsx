@@ -63,12 +63,27 @@ export function Menu() {
           </Link>
         </Button>
 
-        <Button variant="ghost" className="justify-start gap-2" asChild>
-          <Link href="/bookings">
-            <CalendarIcon size={16} />
-            <p className="text-sm font-normal">Agendamentos</p>
-          </Link>
-        </Button>
+        {data?.user ? (
+          <Button variant="ghost" className="justify-start gap-2" asChild>
+            <Link href="/bookings">
+              <CalendarIcon size={16} />
+              <p className="text-sm font-normal">Agendamentos</p>
+            </Link>
+          </Button>
+        ) : (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="ghost"
+                className="items-center justify-start gap-2 rounded-lg"
+              >
+                <CalendarIcon size={16} />
+                <p className="text-sm font-normal">Agendamentos</p>
+              </Button>
+            </DialogTrigger>
+            <SignInDialog />
+          </Dialog>
+        )}
       </div>
 
       <div className="flex flex-col gap-1 border-b border-solid py-5">

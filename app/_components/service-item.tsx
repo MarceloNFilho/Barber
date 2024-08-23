@@ -25,6 +25,7 @@ import { SignInDialog } from "./sign-in-dialog"
 import { TIME_LIST } from "../_constants/time-list"
 import { BookingSummary } from "./booking-summary"
 import { useRouter } from "next/navigation"
+import { BookingTimeList } from "./booking-time-list"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -105,10 +106,6 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
 
   function handleDateSelect(date: Date | undefined) {
     setSelectedDay(date)
-  }
-
-  function handleTimeSelect(time: string) {
-    setSelectedTime(time)
   }
 
   function handleBookingClick() {
@@ -230,25 +227,12 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
                   </div>
 
                   {selectedDay && (
-                    <div className="flex gap-3 overflow-auto border-b border-solid p-5 [&::-webkit-scrollbar]:hidden">
-                      {timeList.length > 0 ? (
-                        timeList.map((time) => (
-                          <Button
-                            key={time}
-                            variant={
-                              selectedTime === time ? "default" : "outline"
-                            }
-                            className="rounded-full"
-                            onClick={() => handleTimeSelect(time)}
-                          >
-                            {time}
-                          </Button>
-                        ))
-                      ) : (
-                        <p className="w-full text-center text-xs text-gray-400">
-                          Não há horários disponíveis para esse dia.
-                        </p>
-                      )}
+                    <div className="overflow-hidden">
+                      <BookingTimeList
+                        timeList={timeList}
+                        selectedTime={selectedTime}
+                        setSelectedTime={setSelectedTime}
+                      />
                     </div>
                   )}
 
@@ -263,6 +247,7 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
                   )}
                   <SheetFooter className="mt-5 px-5">
                     <Button
+                      className="w-full"
                       type="submit"
                       onClick={handleCreateBooking}
                       disabled={!selectedDay || !selectedTime}

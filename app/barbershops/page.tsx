@@ -42,8 +42,8 @@ export default async function BarberShopsPage({
   return (
     <>
       <Header />
-      <div className="mt-6">
-        <div className="px-5">
+      <div className="mx-auto mt-6 max-w-[1224px]">
+        <div className="px-5 lg:hidden">
           <Search />
         </div>
 
@@ -51,7 +51,7 @@ export default async function BarberShopsPage({
           RESULTADOS PARA “{searchParams.title || searchParams.service}”
         </p>
 
-        <div className="mb-12 mt-3 grid grid-cols-2 gap-4 px-5">
+        <div className="mb-12 mt-3 grid grid-cols-2 gap-4 px-5 lg:grid-cols-5">
           {barbershops.map((barbershop) => {
             return (
               <BarbershopItem key={barbershop.id} barbershop={barbershop} />

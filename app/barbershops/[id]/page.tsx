@@ -96,7 +96,7 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
             <p className="text-justify text-sm">{barbershop?.description}</p>
           </div>
 
-          <div className="space-y-3 px-5 lg:mb-6">
+          <div className="space-y-3 px-5 lg:mb-12">
             <Title label="Serviços" />
             <div className="lg:grid lg:grid-cols-2 lg:gap-4">
               {barbershop.services.map((service) => {

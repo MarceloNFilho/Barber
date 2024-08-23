@@ -38,7 +38,7 @@ export function BarbershopList({ barbershops }: BarbershopListProps) {
   })
 
   return (
-    <div ref={sliderRef} className="relative flex">
+    <div ref={sliderRef} className="relative flex w-full">
       <Button
         className="absolute bottom-[30%] left-4 z-10 hidden h-14 w-14 -translate-y-1/2 rounded-full border border-solid border-secondary bg-background disabled:hidden lg:block"
         onClick={(e: any) => e.stopPropagation() || instanceRef.current?.prev()}

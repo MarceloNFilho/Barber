@@ -17,7 +17,6 @@ import { Dialog, DialogTrigger } from "./ui/dialog"
 import { SignInDialog } from "./sign-in-dialog"
 import { signOut, useSession } from "next-auth/react"
 import { Avatar, AvatarImage } from "./ui/avatar"
-import { usePathname } from "next/navigation"
 import { Search } from "./search"
 import {
   DropdownMenu,
@@ -27,13 +26,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
+import { usePathname, useRouter } from "next/navigation"
 
 export function Header() {
-  const router = usePathname()
+  const router = useRouter()
+  const pathname = usePathname()
   const { data } = useSession()
 
   function handleSignOutClick() {
-    signOut()
+    signOut().then(() => router.push("/"))
   }
 
   return (
@@ -54,8 +55,8 @@ export function Header() {
           </Sheet>
         </div>
 
-        {router !== "/" && (
-          <div className="flex-1">
+        {pathname !== "/" && (
+          <div className="flex-1 max-lg:hidden">
             <Search />
           </div>
         )}

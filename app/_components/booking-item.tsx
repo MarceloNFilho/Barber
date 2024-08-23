@@ -72,8 +72,8 @@ export function BookingItem({ booking }: BookingItemProps) {
   return (
     <Sheet open={isSheetOpen} onOpenChange={handleSheetOpenChange}>
       <SheetTrigger asChild>
-        <div className="min-w-full">
-          <Card>
+        <div className="min-w-full lg:max-w-[380px]">
+          <Card className="cursor-pointer">
             <CardContent className="flex justify-between p-0">
               <div className="flex flex-col gap-2 py-5 pl-5">
                 <Badge
@@ -152,7 +152,7 @@ export function BookingItem({ booking }: BookingItemProps) {
         </div>
 
         <SheetFooter className="mt-6">
-          <div className="flex items-center gap-3">
+          <div className="flex w-full items-center gap-3">
             <SheetClose asChild>
               <Button variant="outline" className="w-full">
                 Voltar
@@ -179,7 +179,7 @@ export function BookingItem({ booking }: BookingItemProps) {
                       Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction
-                      className="w-full bg-destructive"
+                      className="w-full bg-destructive hover:bg-destructive/90"
                       onClick={handleCancelBooking}
                     >
                       Confirmar

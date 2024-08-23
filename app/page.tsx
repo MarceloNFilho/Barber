@@ -14,6 +14,7 @@ import { ptBR, se } from "date-fns/locale"
 import { format } from "date-fns"
 import { getConfirmedBookings } from "./_data/get-confirmed-bookings"
 import { BarbershopList } from "./_components/barbershop-list"
+import { BookingList } from "./_components/booking-list"
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -21,6 +22,11 @@ export default async function Home() {
   const popularBarbershops = await db.barbershop.findMany({
     orderBy: {
       name: "desc",
+    },
+  })
+  const moreVisitedBarbershops = await db.barbershop.findMany({
+    orderBy: {
+      name: "asc",
     },
   })
 
@@ -62,27 +68,18 @@ export default async function Home() {
                 <div className="mt-11 w-full">
                   <Search />
 
-                  <div className="mt-11">
+                  <div className="mt-5 overflow-hidden">
                     {session?.user && confirmedBookings.length > 0 && (
                       <>
                         <Title label="Agendamentos" />
-                        <div className="flex gap-4 overflow-x-auto">
-                          {confirmedBookings.map((booking) => {
-                            return (
-                              <BookingItem
-                                key={booking.id}
-                                booking={JSON.parse(JSON.stringify(booking))}
-                              />
-                            )
-                          })}
-                        </div>
+                        <BookingList confirmedBookings={confirmedBookings} />
                       </>
                     )}
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col overflow-x-auto [&::-webkit-scrollbar]:hidden">
+              <div className="flex flex-col overflow-hidden">
                 <Title label="Recomendados" />
                 <BarbershopList barbershops={barbershops} />
               </div>
@@ -160,15 +157,20 @@ export default async function Home() {
           </>
         )}
 
-        <div className="mx-auto max-w-[1224px] overflow-hidden px-5">
+        <div className="overflow-hidden px-5">
           <Title label="Recomendados" />
           <BarbershopList barbershops={barbershops} />
         </div>
       </div>
 
-      <div className="mx-auto mb-12 max-w-[1224px] overflow-hidden px-5">
+      <div className="mx-auto mb-12 max-w-[1184px] overflow-hidden max-lg:px-5">
         <Title label="Populares" />
         <BarbershopList barbershops={popularBarbershops} />
+
+        <div className="max-lg:hidden">
+          <Title label="Mais visitados" />
+          <BarbershopList barbershops={moreVisitedBarbershops} />
+        </div>
       </div>
     </div>
   )

@@ -20,7 +20,7 @@ export default async function Bookings() {
     <>
       <Header />
 
-      <div className="mt-6 px-5">
+      <div className="mx-auto mt-6 max-w-[1224px] px-5">
         <h2 className="text-xl font-bold">Agendamentos</h2>
 
         {confirmedBookings.length === 0 && concludedBookings.length === 0 && (
@@ -28,7 +28,7 @@ export default async function Bookings() {
         )}
 
         {confirmedBookings.length > 0 && <Title label="Confirmados" />}
-        <div className="space-y-3">
+        <div className="max-lg:space-y-3 lg:grid lg:grid-cols-3 lg:items-center lg:gap-4">
           {confirmedBookings.map((booking) => {
             return (
               <BookingItem
@@ -40,7 +40,7 @@ export default async function Bookings() {
         </div>
 
         {concludedBookings.length > 0 && <Title label="Finalizados" />}
-        <div className="mb-12 space-y-3">
+        <div className="mb-12 max-lg:space-y-3 lg:grid lg:grid-cols-3 lg:items-center lg:gap-4">
           {concludedBookings.map((booking) => {
             return (
               <BookingItem
