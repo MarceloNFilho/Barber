@@ -163,7 +163,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="mx-auto mb-12 max-w-[1184px] overflow-hidden max-lg:px-5">
+      <div className="mx-auto mb-12 max-w-[1184px] overflow-hidden max-xl:px-5">
         <Title label="Populares" />
         <BarbershopList barbershops={popularBarbershops} />
 

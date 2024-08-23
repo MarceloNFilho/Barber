@@ -11,7 +11,7 @@ interface BarbershopInfosProps {
 
 export function BarbershopInfos({ barbershop }: BarbershopInfosProps) {
   return (
-    <Card className="flex w-[386px] flex-col space-y-5 p-5">
+    <Card className="flex min-w-[316px] max-w-[386px] flex-col space-y-5 p-5 xl:w-[386px]">
       <div className="relative flex h-[180px] w-full items-end">
         <Image
           alt={`Mapa da barbearia ${barbershop.imageUrl}`}

@@ -37,14 +37,14 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
       <div className="hidden lg:block">
         <Header />
       </div>
-      <div className="mx-auto flex max-w-[1224px] items-start lg:mt-10 lg:gap-10">
+      <div className="mx-auto flex max-w-[1224px] items-start lg:mt-10 lg:gap-6 lg:px-5">
         <div className="flex flex-col">
           <div className="relative h-[250px] w-full lg:h-[400px]">
             <Image
               src={barbershop?.imageUrl}
               alt={barbershop?.name}
               fill
-              className="rounded-lg object-cover lg:mx-5"
+              className="rounded-lg object-cover"
               quality={100}
             />
 
@@ -73,7 +73,7 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
             </Sheet>
           </div>
 
-          <div className="relative z-10 rounded-t-3xl border-b border-solid bg-background p-5 pb-6 max-lg:mt-[-1.5rem] lg:border-0">
+          <div className="relative z-10 rounded-t-3xl border-b border-solid bg-background py-5 max-lg:mt-[-1.5rem] max-lg:p-5 max-lg:pb-6 lg:border-0">
             <h1 className="text-xl font-bold lg:text-3xl">
               {barbershop?.name}
             </h1>
@@ -91,12 +91,12 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
             </div>
           </div>
 
-          <div className="border-b border-solid px-5 pb-6 lg:hidden">
+          <div className="border-b border-solid pb-6 max-lg:px-5 lg:hidden">
             <Title label="Sobre nós" />
             <p className="text-justify text-sm">{barbershop?.description}</p>
           </div>
 
-          <div className="space-y-3 px-5 lg:mb-12">
+          <div className="space-y-3 max-lg:px-5 lg:mb-12">
             <Title label="Serviços" />
             <div className="lg:grid lg:grid-cols-2 lg:gap-4">
               {barbershop.services.map((service) => {
@@ -111,7 +111,7 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
             </div>
           </div>
 
-          <div className="mb-12 mt-6 border-t border-solid px-5 lg:hidden">
+          <div className="mb-12 mt-6 border-t border-solid max-lg:px-5 lg:hidden">
             <Title label="Contato" />
             <div className="space-y-3">
               {barbershop.phones.map((phone, index) => {
